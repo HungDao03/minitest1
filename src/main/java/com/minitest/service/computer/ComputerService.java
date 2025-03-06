@@ -22,8 +22,8 @@ public class ComputerService implements IComputerService {
         return computerRepository.findAll();
     }
     @Override
-    public void save(Computer computer) {
-        computerRepository.save(computer);
+    public Computer save(Computer computer) {
+        return computerRepository.save(computer);
     }
     @Override
     public Optional<Computer> findById(Long id) {

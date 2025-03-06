@@ -1,6 +1,7 @@
 package com.minitest.service.type;
 
 import com.minitest.dto.TypeDTO;
+import com.minitest.model.Computer;
 import com.minitest.model.Type;
 import com.minitest.repository.ITypeRepository;
 import com.minitest.service.ITypeService;
@@ -21,8 +22,8 @@ public class TypeService implements ITypeService {
         return typeRepository.findAll();
     }
     @Override
-    public void save(Type type) {
-        typeRepository.save(type);
+    public Type save(Type type) {
+       return typeRepository.save(type);
     }
     @Override
     public Optional<Type> findById(Long id) {

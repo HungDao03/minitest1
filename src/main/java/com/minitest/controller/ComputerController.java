@@ -42,6 +42,41 @@ public class ComputerController {
         return new ResponseEntity<>(computers, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Computer> findCustomerById(@PathVariable Long id) {
+        Optional<Computer> computerOptional = computerService.findById(id);
+        if (!computerOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(computerOptional.get(), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Computer> saveCustomer(@RequestBody Computer computer) {
+        return new ResponseEntity<>(computerService.save(computer), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Computer> updateCustomer(@PathVariable Long id, @RequestBody Computer customer) {
+        Optional<Computer> customerOptional = computerService.findById(id);
+        if (!customerOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        customer.setId(customerOptional.get().getId());
+        return new ResponseEntity<>(computerService.save(customer), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Computer> deleteCustomer(@PathVariable Long id) {
+        Optional<Computer> customerOptional = computerService.findById(id);
+        if (!customerOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        computerService.remove(id);
+        return new ResponseEntity<>(customerOptional.get(), HttpStatus.OK);
+    }
+}
+
 
 //    @ModelAttribute("types")
 //    public Iterable<Type> listTypes() {
@@ -144,4 +179,3 @@ public class ComputerController {
 //        redirectAttributes.addFlashAttribute("message", "Deleted computer successfully");
 //        return "redirect:/computer";
 //    }
-}
